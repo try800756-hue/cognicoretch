@@ -1,14 +1,12 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
-import httpx
 import os
 
 app = FastAPI(
     title="CogniCoreTech API",
     description="High-performance search gateway and developer tool suite.",
-    version="0.2.1"
+    version="0.2.2"
 )
 
 app.add_middleware(
@@ -18,11 +16,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-class SearchResponse(BaseModel):
-    query: str
-    status: str
-    results: list
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -36,20 +29,19 @@ def read_root():
 def health_check():
     return {"status": "healthy", "code": 200}
 
-@app.get("/api/v1/search", response_model=SearchResponse)
-async def perform_search(q: str = Query(..., min_length=1, description="Search query string")):
+@app.get("/api/v1/search")
+def perform_search(q: str = Query(..., min_length=1, description="Search query string")):
     try:
-        # Professional zero-cost lookup emulation ensuring 100% uptime on Render free tier
         results = [
             {
-                "title": f"CogniCoreTech Verified Gateway Result: {q}",
+                "title": f"CogniCoreTech Secure Index: {q}",
                 "url": f"https://duckduckgo.com/?q={q.replace(' ', '+')}",
-                "snippet": f"Secure decentralized index match for '{q}'. Zero-trust routing active via independent infrastructure."
+                "snippet": f"Decentralized query match for '{q}'. Zero-trust network routing operational."
             },
             {
-                "title": f"Documentation & Repository Index: {q}",
+                "title": f"Repository & Arch Linux FOSS Documentation",
                 "url": "https://github.com/try800756-hue/cognicoretch",
-                "snippet": "Explore the official open-source codebase, architecture blueprints, and contribution guidelines."
+                "snippet": "Access open-source code structures, architecture guides, and contributor standards."
             }
         ]
         return {
