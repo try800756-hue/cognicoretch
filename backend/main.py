@@ -8,8 +8,8 @@ import os
 
 app = FastAPI(
     title="CogniCoreTech Enterprise API",
-    description="True sovereign search engine with direct destination URLs and zero third-party wrappers.",
-    version="2.0.0"
+    description="Sovereign search engine powered by SearXNG meta-search architecture.",
+    version="2.1.0"
 )
 
 app.add_middleware(
@@ -19,6 +19,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Reliable public SearXNG instances supporting JSON format
+SEARXNG_INSTANCES = [
+    "https://search.ononoki.org",
+    "https://searx.be",
+    "https://etsay.recursivo.org"
+]
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -34,7 +41,6 @@ def opensearch_xml():
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
   <ShortName>CogniCoreTech</ShortName>
   <Description>CogniCoreTech Sovereign Search Engine - Seeta, Uganda</Description>
-  <InputEncoding>UTF-8</InputEncoding>
   <Image width="16" height="16" type="image/x-icon">https://cognicoretch-gateway.onrender.com/favicon.ico</Image>
   <Url type="text/html" template="https://cognicoretch-gateway.onrender.com/?q={searchTerms}"/>
   <Url type="application/x-suggestions+json" template="https://cognicoretch-gateway.onrender.com/api/v1/search?q={searchTerms}"/>
@@ -44,7 +50,7 @@ def opensearch_xml():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "origin": "Seeta, Uganda", "donation_line": "0731662819", "paypal": "paypal.me/cognicoretch"}
+    return {"status": "healthy", "origin": "Seeta, Uganda", "engine": "SearXNG Meta-Search Gateway"}
 
 @app.get("/api/v1/dashboard")
 def get_dashboard_feeds():
@@ -56,26 +62,18 @@ def get_dashboard_feeds():
     ]
     items = [
         {
-            "title": "East African Community Finalizes Cross-Border Fintech & Currency Settlement Protocols",
+            "title": "East African Community Finalizes Cross-Border Fintech Settlement Protocols",
             "category": "African Economy",
             "symbol": "EAC",
-            "snippet": "Regional central banks met yesterday in Kampala to review monetary integration, driving dollar liquidity management across member states.",
+            "snippet": "Regional central banks met yesterday in Kampala to review monetary integration.",
             "url": "https://eac.int",
             "timestamp": "Yesterday"
-        },
-        {
-            "title": "Uganda Premier League: KCCA FC Secure Dramatic 2-1 Victory Over SC Villa",
-            "category": "Football & Sports",
-            "symbol": "UPL",
-            "snippet": "High-intensity Kampala derby played earlier today at Lugogo stadium shifts championship standings significantly.",
-            "url": "https://fufa.co.ug",
-            "timestamp": "Today"
         },
         {
             "title": "Seeta Tech Hub Launches Sovereign Zero-Trust Linux Kernel Security Standard",
             "category": "Technology",
             "symbol": "FOSS",
-            "snippet": "Local software engineers released open-source memory safety toolsets designed for enterprise Arch Linux environments.",
+            "snippet": "Local software engineers released open-source memory safety toolsets for enterprise Linux.",
             "url": "https://github.com/try800756-hue/cognicoretch",
             "timestamp": "Today"
         }
@@ -84,120 +82,69 @@ def get_dashboard_feeds():
 
 @app.get("/api/v1/search")
 def perform_search(q: str = Query(..., min_length=1)):
+    encoded_query = urllib.parse.quote(q)
     results = []
     images = []
-    encoded_query = urllib.parse.quote(q)
-    lower_q = q.lower()
-    
-    try:
-        # 1. Query Wikipedia REST API for direct official knowledge base articles
-        wiki_url = f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={encoded_query}&format=json"
-        req = urllib.request.Request(
-            wiki_url,
-            headers={"User-Agent": "CogniCoreTechSovereignEngine/2.0 (Seeta, Uganda Node)"}
-        )
-        with urllib.request.urlopen(req, timeout=4.0) as resp:
-            wiki_data = json.loads(resp.read().decode("utf-8"))
-            for item in wiki_data.get("query", {}).get("search", []):
-                title = item.get("title")
-                snippet = item.get("snippet").replace('<span class="searchmatch">', '').replace('</span>', '')
-                page_url = f"https://en.wikipedia.org/wiki/{urllib.parse.quote(title.replace(' ', '_'))}"
-                results.append({
-                    "title": title,
-                    "url": page_url,
-                    "snippet": snippet,
-                    "type": "web"
-                })
 
-        # 2. Query GitHub Open Repositories API for FOSS & Code results
-        if any(kw in lower_q for kw in ["os", "linux", "git", "python", "code", "windows", "tool", "app"]):
-            gh_url = f"https://api.github.com/search/repositories?q={encoded_query}&per_page=5"
-            gh_req = urllib.request.Request(
-                gh_url,
-                headers={"User-Agent": "CogniCoreTechSovereignEngine/2.0", "Accept": "application/vnd.github.v3+json"}
+    # Attempt fetching from SearXNG instances
+    success = False
+    for instance in SEARXNG_INSTANCES:
+        try:
+            api_url = f"{instance}/search?q={encoded_query}&format=json"
+            req = urllib.request.Request(
+                api_url,
+                headers={"User-Agent": "CogniCoreTechSovereignGateway/2.1 (Arch Linux FOSS Node)"}
             )
-            try:
-                with urllib.request.urlopen(gh_req, timeout=3.0) as gh_resp:
-                    gh_data = json.loads(gh_resp.read().decode("utf-8"))
-                    for repo in gh_data.get("items", []):
-                        results.append({
-                            "title": repo.get("full_name"),
-                            "url": repo.get("html_url"),
-                            "snippet": repo.get("description") or f"Open-source repository for {q} hosted on GitHub.",
-                            "type": "code"
+            with urllib.request.urlopen(req, timeout=3.5) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                
+                # Parse web results
+                for item in data.get("results", []):
+                    results.append({
+                        "title": item.get("title"),
+                        "url": item.get("url"),
+                        "snippet": item.get("content") or item.get("snippet", ""),
+                        "type": "web"
+                    })
+                
+                # Parse image results if available
+                for img in data.get("infoboxes", []) or data.get("results", []):
+                    if "img_src" in img or "thumbnail" in img:
+                        images.append({
+                            "title": img.get("title", q),
+                            "url": img.get("url", "https://github.com/try800756-hue/cognicoretch"),
+                            "thumb": img.get("img_src") or img.get("thumbnail"),
+                            "source": "SearXNG Node"
                         })
-            except Exception:
-                pass
 
-        # 3. Add Verified Direct Enterprise & News Registry Links
-        results.extend([
+                if results:
+                    success = True
+                    break
+        except Exception:
+            continue
+
+    # Fallback if public instances fail temporarily
+    if not results:
+        results.append({
+            "title": f"CogniCoreTech Sovereign Archive: {q.capitalize()}",
+            "url": f"https://github.com/try800756-hue/cognicoretch",
+            "snippet": f"Decentralized node record for {q}. Hosted locally from Seeta, Uganda.",
+            "type": "web"
+        })
+
+    if not images:
+        images = [
             {
-                "title": f"Official Portal & Documentation for {q.capitalize()}",
-                "url": f"https://www.google.com/search?q={encoded_query}",
-                "snippet": f"Comprehensive primary resource hub, user guides, and enterprise documentation for {q}.",
-                "type": "web"
-            },
-            {
-                "title": f"East African & Global Press Coverage: {q.capitalize()}",
-                "url": f"https://news.google.com/search?q={encoded_query}",
-                "snippet": f"Latest journalistic investigations, regional reports, and daily news updates regarding {q}.",
-                "type": "news"
+                "title": f"{q.capitalize()} - Sovereign Architecture Asset",
+                "url": "https://github.com/try800756-hue/cognicoretch",
+                "thumb": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+                "source": "Seeta Node"
             }
-        ])
+        ]
 
-        # 4. Precise Image Assets & Logos
-        if "windows" in lower_q or "10" in lower_q:
-            images = [
-                {"title": "Windows 10 Official Logo", "url": "https://www.microsoft.com", "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Windows_logo_-_2012_%28dark_blue%29.svg", "source": "Microsoft"},
-                {"title": "Windows 10 Desktop Interface", "url": "https://www.microsoft.com", "thumb": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80", "source": "Unsplash"},
-                {"title": "Enterprise Security Node", "url": "https://github.com/try800756-hue/cognicoretch", "thumb": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80", "source": "Seeta Node"}
-            ]
-        elif "parrot" in lower_q or "os" in lower_q:
-            images = [
-                {"title": "Parrot OS Security Logo", "url": "https://www.parrotsec.org", "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Parrot_security_os_logo.svg", "source": "Parrot Project"},
-                {"title": "Penetration Testing Terminal", "url": "https://www.parrotsec.org", "thumb": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80", "source": "FOSS Archive"},
-                {"title": "Arch Linux Cybersecurity Workstation", "url": "https://archlinux.org", "thumb": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&q=80", "source": "Seeta Node"}
-            ]
-        else:
-            images = [
-                {
-                    "title": f"{q.capitalize()} - Official System Architecture",
-                    "url": f"https://en.wikipedia.org/wiki/Special:Search?search={encoded_query}",
-                    "thumb": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
-                    "source": "Seeta Sovereign Node"
-                },
-                {
-                    "title": f"{q.capitalize()} - Terminal Workspace & Modules",
-                    "url": f"https://github.com/search?q={encoded_query}",
-                    "thumb": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80",
-                    "source": "FOSS Archive"
-                }
-            ]
-
-        return {
-            "query": q,
-            "status": "success",
-            "results": results,
-            "images": images
-        }
-    except Exception as e:
-        return {
-            "query": q,
-            "status": "success",
-            "results": [
-                {
-                    "title": f"CogniCoreTech Sovereign Archive: {q}",
-                    "url": f"https://github.com/try800756-hue/cognicoretch",
-                    "snippet": f"Direct decentralized node record for '{q}'. Engineered in Seeta, Uganda.",
-                    "type": "web"
-                }
-            ],
-            "images": [
-                {
-                    "title": f"{q} - Sovereign Visual Asset",
-                    "url": "https://github.com/try800756-hue/cognicoretch",
-                    "thumb": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
-                    "source": "Seeta Node"
-                }
-            ]
-        }
+    return {
+        "query": q,
+        "status": "success",
+        "results": results[:15],
+        "images": images[:6]
+    }
