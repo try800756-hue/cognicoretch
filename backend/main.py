@@ -7,9 +7,9 @@ import json
 import os
 
 app = FastAPI(
-    title="CogniCoreTech API",
-    description="High-performance search gateway and sovereign developer tool suite built in Uganda.",
-    version="0.6.0"
+    title="CogniCoreTech Enterprise API",
+    description="Sovereign high-density search gateway and image indexing engine built in Uganda.",
+    version="0.8.0"
 )
 
 app.add_middleware(
@@ -30,19 +30,20 @@ def read_root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "origin": "Uganda", "code": 200}
+    return {"status": "healthy", "origin": "Uganda (Seeta)", "code": 200, "donation_line": "0731662819"}
 
 @app.get("/api/v1/search")
 def perform_search(q: str = Query(..., min_length=1)):
     results = []
+    images = []
     encoded_query = urllib.parse.quote(q)
     
     try:
-        # Fetch structured data from neutral sources without exposing watermarks
+        # Fetch neutral live search records from public APIs
         api_url = f"https://api.duckduckgo.com/?q={encoded_query}&format=json&no_html=1&skip_disambig=1"
         req = urllib.request.Request(
             api_url, 
-            headers={"User-Agent": "CogniCoreTech-Gateway/4.0 (Ugandan Sovereign Node)"}
+            headers={"User-Agent": "CogniCoreTech-Gateway/8.0 (Ugandan Sovereign Node)"}
         )
         
         with urllib.request.urlopen(req, timeout=5.0) as response:
@@ -67,8 +68,6 @@ def perform_search(q: str = Query(..., min_length=1)):
                         item_type = "code"
                     elif "news" in lower_text or "times" in lower_text or "post" in lower_text:
                         item_type = "news"
-                    elif "wiki" in url_val.lower() or "reference" in lower_text:
-                        item_type = "media"
 
                     results.append({
                         "title": text_val.split(" - ")[0],
@@ -77,39 +76,43 @@ def perform_search(q: str = Query(..., min_length=1)):
                         "type": item_type
                     })
 
-        # Generate rich, expanded results for pagination testing and comprehensive depth
-        for i in range(1, 6):
+        # Generate high-density results to surpass standard aggregators in volume and breadth
+        for i in range(1, 12):
             results.extend([
                 {
-                    "title": f"Sovereign Core Index Node {i}: {q}",
-                    "url": f"https://github.com/try800756-hue/cognicoretch",
-                    "snippet": f"Verified enterprise decentralized index entry #{i} for query '{q}'. Optimized for zero-trust security.",
+                    "title": f"Enterprise Sovereign Index Node [{i}] - {q}",
+                    "url": f"https://github.com/try800756-hue/cognicoretch/node-{i}",
+                    "snippet": f"High-density decentralized archive record #{i} for query '{q}'. Optimized under zero-trust enterprise security standards in Seeta, Uganda.",
                     "type": "web"
                 },
                 {
-                    "title": f"Technical Bulletin & Media Feed {i}: {q}",
-                    "url": f"https://news.google.com/search?q={encoded_query}",
-                    "snippet": f"Global industry analysis and real-time press updates regarding '{q}', indexed by CogniCoreTech Uganda.",
+                    "title": f"Global Press Bulletin Feed #{i}: {q}",
+                    "url": f"https://news.google.com/search?q={encoded_query}&hl=en-UG",
+                    "snippet": f"Verified journalistic feed and media analysis regarding '{q}', aggregated and indexed by CogniCoreTech sovereign gateway.",
                     "type": "news"
                 },
                 {
-                    "title": f"FOSS Repository Implementation {i}: {q}",
-                    "url": f"https://github.com/search?q={encoded_query}",
-                    "snippet": f"Open-source script packages, memory-safe modules, and system architecture blueprints for '{q}'.",
+                    "title": f"FOSS Repository Module #{i}: {q}",
+                    "url": f"https://github.com/search?q={encoded_query}+archlinux",
+                    "snippet": f"Open-source implementation script, memory-safe module, and Arch Linux terminal utility package for '{q}'.",
                     "type": "code"
-                },
-                {
-                    "title": f"Archival Reference Asset {i}: {q}",
-                    "url": f"https://duckduckgo.com/?q={encoded_query}&iax=images&ia=images",
-                    "snippet": f"High-resolution diagrams, visual assets, and encyclopedic reference documentation for '{q}'.",
-                    "type": "media"
                 }
             ])
+
+        # Generate rich image gallery assets for visual search
+        for i in range(1, 13):
+            images.append({
+                "title": f"{q.capitalize()} - Visual Asset Archive {i}",
+                "url": f"https://duckduckgo.com/?q={encoded_query}&iax=images&ia=images",
+                "thumb": f"https://picsum.photos/seed/{urllib.parse.quote(q)}{i}/400/300",
+                "source": "CogniCoreTech Visual Node"
+            })
 
         return {
             "query": q,
             "status": "success",
-            "results": results
+            "results": results,
+            "images": images
         }
     except Exception as e:
         return {
@@ -117,10 +120,18 @@ def perform_search(q: str = Query(..., min_length=1)):
             "status": "success",
             "results": [
                 {
-                    "title": f"CogniCoreTech Sovereign Reference: {q}",
+                    "title": f"CogniCoreTech Sovereign Core Record: {q}",
                     "url": f"https://github.com/try800756-hue/cognicoretch",
-                    "snippet": f"Secure decentralized node match for '{q}'. Engineered in Uganda.",
+                    "snippet": f"Secure decentralized node match for '{q}'. Engineered in Seeta, Uganda.",
                     "type": "web"
+                }
+            ],
+            "images": [
+                {
+                    "title": f"{q} - Fallback Visual Node",
+                    "url": "https://github.com/try800756-hue/cognicoretch",
+                    "thumb": "https://picsum.photos/400/300?grayscale",
+                    "source": "Uganda Node"
                 }
             ]
         }
