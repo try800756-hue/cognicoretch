@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CogniCoreTech | Enterprise Intelligence Gateway</title>
+    <title>CogniCoreTech | Proudly Built in Uganda - Enterprise Intelligence Gateway</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-[#090a0f] text-zinc-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black font-mono">
+<body class="bg-[#07080c] text-zinc-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black font-mono">
     
     <!-- Top Nav -->
-    <header class="border-b border-zinc-800/80 px-6 py-4 flex justify-between items-center bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-50">
-        <div class="flex items-center space-x-3">
-            <div class="w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_rgba(34,211,238,0.7)] animate-pulse"></div>
+    <header class="border-b border-zinc-800/80 px-6 py-4 flex justify-between items-center bg-zinc-950/90 backdrop-blur-xl sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                <div class="w-3 h-3 bg-amber-400 rounded-full"></div>
+                <div class="w-3 h-3 bg-black border border-zinc-700 rounded-full"></div>
+            </div>
             <span class="font-extrabold tracking-wider text-lg">COGNI<span class="text-cyan-400">CORE</span>.TECH</span>
+            <span class="hidden md:inline-block text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">
+                🇺🇬 PROUDLY UGANDAN &bull; SEETA
+            </span>
         </div>
         <div class="flex items-center space-x-4">
-            <span class="text-[10px] text-zinc-400 hidden sm:inline border border-zinc-800 px-2.5 py-1 rounded-md bg-zinc-900/50">SECURE ZERO-TRUST NODE</span>
-            <div class="text-xs text-zinc-400 border border-zinc-800 px-3 py-1 rounded-full bg-zinc-900">
-                STATUS: <span class="text-emerald-400 font-bold">ONLINE</span>
+            <button id="aboutBtn" class="text-xs text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 px-3 py-1.5 rounded-lg bg-cyan-950/30 transition-all cursor-pointer font-bold">
+                ABOUT ENTERPRISE
+            </button>
+            <div class="text-xs text-zinc-400 border border-zinc-800 px-3 py-1 rounded-full bg-zinc-900 hidden sm:block">
+                NODE: <span class="text-emerald-400 font-bold">ONLINE</span>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="flex-grow flex flex-col items-center px-4 py-16">
+    <main class="flex-grow flex flex-col items-center px-4 py-12">
         <div class="w-full max-w-4xl text-center space-y-8">
             <div class="space-y-3">
+                <div class="inline-flex items-center space-x-2 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full text-xs text-zinc-400 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Autonomous Sovereign Search Infrastructure</span>
+                </div>
                 <h1 class="text-4xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-zinc-100 via-cyan-200 to-cyan-500 bg-clip-text text-transparent">
                     Enterprise Intelligence Engine
                 </h1>
                 <p class="text-zinc-400 text-sm md:text-base max-w-xl mx-auto">
-                    Decentralized developer gateway aggregating web, news, codebases, and media assets instantly.
+                    Independent, zero-trust developer gateway engineered from scratch in Uganda.
                 </p>
             </div>
 
@@ -40,7 +53,7 @@
                     <input 
                         type="text" 
                         id="queryInput" 
-                        placeholder="Search operating systems, tools, repositories..." 
+                        placeholder="Search web archives, code, documentation..." 
                         required
                         class="flex-grow bg-zinc-900/90 border border-zinc-700/80 rounded-xl px-5 py-4 text-zinc-100 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-sm transition-all shadow-inner"
                     >
@@ -65,17 +78,61 @@
             <!-- Results Section -->
             <div id="resultsContainer" class="hidden text-left mt-10 space-y-4">
                 <div class="flex justify-between items-center border-b border-zinc-800/80 pb-3">
-                    <h3 class="text-xs text-zinc-400 uppercase tracking-widest font-bold">Aggregated Execution Feed</h3>
+                    <h3 id="resultStatusText" class="text-xs text-zinc-400 uppercase tracking-widest font-bold">Aggregated Execution Feed</h3>
                     <span id="resultCount" class="text-xs text-cyan-400 font-bold">0 records indexed</span>
                 </div>
                 <div id="resultsList" class="space-y-4 text-sm"></div>
+                
+                <!-- Pagination Controls -->
+                <div id="paginationControls" class="flex justify-between items-center pt-6 border-t border-zinc-800/80">
+                    <button id="prevBtn" onclick="changePage(-1)" class="bg-zinc-900 border border-zinc-800 hover:border-cyan-500 text-zinc-300 font-bold px-5 py-2.5 rounded-lg text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                        &larr; Previous Page
+                    </button>
+                    <span id="pageIndicator" class="text-xs font-mono text-zinc-400">Page 1 of 1</span>
+                    <button id="nextBtn" onclick="changePage(1)" class="bg-zinc-900 border border-zinc-800 hover:border-cyan-500 text-zinc-300 font-bold px-5 py-2.5 rounded-lg text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                        Next Page &rarr;
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- About Modal -->
+    <div id="aboutModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-700 rounded-2xl max-w-2xl w-full p-8 space-y-6 shadow-2xl relative">
+            <button onclick="toggleAbout(false)" class="absolute top-4 right-4 text-zinc-400 hover:text-white text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="flex items-center space-x-2 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                    <span>🇺🇬 Sovereign African Technology</span>
+                </div>
+                <h2 class="text-2xl font-black text-white">About CogniCoreTech</h2>
+            </div>
+            <div class="space-y-4 text-xs md:text-sm text-zinc-300 leading-relaxed font-mono">
+                <p>
+                    <strong class="text-cyan-400">CogniCoreTech</strong> is a high-performance enterprise search gateway and sovereign software engineering initiative built from the ground up in Seeta, Uganda, by <strong class="text-white">Tarvin Os (WILLIAMS)</strong>.
+                </p>
+                <div class="space-y-2 bg-zinc-950/60 p-4 rounded-xl border border-zinc-800">
+                    <h3 class="font-bold text-amber-400 uppercase text-xs">Our Core Aim & Vision</h3>
+                    <p class="text-zinc-400 text-xs">
+                        To break dependency on foreign centralized surveillance ecosystems by designing zero-trust enterprise infrastructure, custom operating systems, memory-safe languages, and high-performance decentralized search gateways starting right here from Uganda to the global stage.
+                    </p>
+                </div>
+                <p>
+                    Built with strict adherence to modern Arch Linux FOSS workflows, zero-cost scaling, and absolute data privacy.
+                </p>
+            </div>
+            <div class="pt-4 border-t border-zinc-800 flex justify-end">
+                <button onclick="toggleAbout(false)" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer">
+                    CLOSE PANEL
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="border-t border-zinc-800/80 px-6 py-6 text-center text-xs text-zinc-600 bg-zinc-950/50">
-        &copy; 2026 CogniCoreTech. Zero-Trust Architecture &bull; Arch Linux FOSS Node
+    <footer class="border-t border-zinc-800/80 px-6 py-6 text-center text-xs text-zinc-600 bg-zinc-950/50 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <span>&copy; 2026 CogniCoreTech. Zero-Trust Architecture &bull; Proudly Ugandan 🇺🇬</span>
+        <span class="text-zinc-500 font-mono">Arch Linux FOSS Node</span>
     </footer>
 
     <!-- JavaScript Gateway Integration -->
@@ -86,9 +143,23 @@
         const resultsList = document.getElementById('resultsList');
         const resultCount = document.getElementById('resultCount');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        
+        const aboutModal = document.getElementById('aboutModal');
+        const aboutBtn = document.getElementById('aboutBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageIndicator = document.getElementById('pageIndicator');
+
         let currentCategory = 'all';
         let cachedResults = [];
+        let currentPage = 1;
+        const resultsPerPage = 5;
+
+        aboutBtn.addEventListener('click', () => toggleAbout(true));
+
+        function toggleAbout(show) {
+            if (show) aboutModal.classList.remove('hidden');
+            else aboutModal.classList.add('hidden');
+        }
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -99,9 +170,16 @@
                 btn.classList.remove('bg-zinc-900', 'border', 'border-zinc-800', 'text-zinc-400');
                 btn.classList.add('bg-cyan-500', 'text-black', 'font-bold', 'shadow');
                 currentCategory = btn.getAttribute('data-category');
+                currentPage = 1;
                 renderResults();
             });
         });
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderResults();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
 
         function renderResults() {
             if (!cachedResults.length) return;
@@ -110,14 +188,25 @@
                 ? cachedResults 
                 : cachedResults.filter(item => item.type === currentCategory);
 
+            const totalPages = Math.ceil(filtered.length / resultsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const start = (currentPage - 1) * resultsPerPage;
+            const paginatedItems = filtered.slice(start, start + resultsPerPage);
+
             resultCount.innerText = `${filtered.length} records indexed`;
+            pageIndicator.innerText = `Page ${currentPage} of ${totalPages}`;
             
-            if (filtered.length === 0) {
-                resultsList.innerHTML = `<div class="bg-zinc-900/60 border border-zinc-800/80 p-6 rounded-xl text-center text-zinc-400">No records found for category '${currentCategory}'. Switch to 'All Feeds' to explore.</div>`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+
+            if (paginatedItems.length === 0) {
+                resultsList.innerHTML = `<div class="bg-zinc-900/60 border border-zinc-800/80 p-6 rounded-xl text-center text-zinc-400">No records found for category '${currentCategory}'.</div>`;
                 return;
             }
 
-            resultsList.innerHTML = filtered.map(item => `
+            resultsList.innerHTML = paginatedItems.map(item => `
                 <div class="bg-zinc-900/70 border border-zinc-800/80 p-5 rounded-xl space-y-2 hover:border-cyan-500/50 transition-all shadow-lg group">
                     <div class="flex justify-between items-start">
                         <a href="${item.url}" target="_blank" class="text-cyan-400 group-hover:text-cyan-300 font-bold text-base leading-snug underline-offset-4 hover:underline">${item.title}</a>
@@ -138,7 +227,8 @@
             if (!query) return;
 
             resultsContainer.classList.remove('hidden');
-            resultsList.innerHTML = '<div class="text-cyan-400 animate-pulse text-center py-12 font-bold tracking-wider">Aggregating decentralized multi-node intelligence feeds...</div>';
+            resultsList.innerHTML = '<div class="text-cyan-400 animate-pulse text-center py-12 font-bold tracking-wider">Aggregating sovereign multi-node intelligence feeds...</div>';
+            pageIndicator.innerText = 'Page 1 of 1';
 
             try {
                 const response = await fetch(`/api/v1/search?q=${encodeURIComponent(query)}`);
@@ -146,6 +236,7 @@
 
                 if (response.ok && data.results) {
                     cachedResults = data.results;
+                    currentPage = 1;
                     renderResults();
                 } else {
                     resultsList.innerHTML = '<div class="text-red-400 text-center py-6 font-bold">Gateway execution error returned.</div>';
