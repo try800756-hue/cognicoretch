@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CogniCoreTech | Sovereign Enterprise Intelligence Engine &bull; Seeta, Uganda</title>
+    <!-- OpenSearch Auto-Discovery for setting as default search engine -->
+    <link rel="search" type="application/opensearchdescription+xml" title="CogniCoreTech" href="/opensearch.xml">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Theme variables */
+        body.light { background-color: #ffffff; color: #27272a; }
+        body.dark { background-color: #121214; color: #f4f4f5; }
+        body.cyberpunk { background-color: #050508; color: #00ff66; font-family: monospace; }
+    </style>
 </head>
-<body class="bg-white text-zinc-800 min-h-screen flex flex-col justify-between font-sans">
+<body class="light min-h-screen flex flex-col justify-between transition-colors duration-200">
     
-    <!-- Top Navigation Bar (Clean & Professional) -->
-    <header class="border-b border-zinc-200 px-6 py-3.5 flex justify-between items-center bg-white sticky top-0 z-50 shadow-xs">
+    <!-- Top Navigation Bar -->
+    <header id="siteHeader" class="border-b border-zinc-200 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50 shadow-xs bg-white/90 backdrop-blur-md">
         <div class="flex items-center space-x-3">
-            <span class="font-extrabold tracking-tight text-lg text-zinc-900">COGNI<span class="text-blue-600">CORE</span>.<span class="text-red-600">TECH</span></span>
+            <span id="logoText" class="font-extrabold tracking-tight text-lg text-zinc-900">COGNI<span class="text-blue-600">CORE</span>.<span class="text-red-600">TECH</span></span>
             <span class="inline-flex items-center space-x-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-md font-medium">
                 <span>🇺🇬</span><span>Seeta, Uganda Node</span>
             </span>
         </div>
         <div class="flex items-center space-x-3">
+            <!-- Theme Switcher Button -->
+            <button id="themeToggleBtn" onclick="cycleTheme()" class="text-xs font-semibold px-3 py-2 rounded-lg transition-all cursor-pointer border border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 shadow-xs flex items-center space-x-1.5">
+                <span id="themeIcon">☀️</span>
+                <span id="themeLabel">Light Mode</span>
+            </button>
             <button id="aboutBtn" class="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-2 rounded-lg transition-all cursor-pointer shadow-xs">
                 About &amp; Donate
             </button>
             <div class="text-xs text-zinc-600 border border-zinc-200 px-3 py-1.5 rounded-lg bg-zinc-50 hidden sm:flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>Status: <span class="text-emerald-700 font-semibold">Online</span></span>
             </div>
         </div>
@@ -33,21 +46,21 @@
             
             <!-- Hero Title & Subtitle -->
             <div class="text-center space-y-2">
-                <h1 class="text-3xl md:text-4xl font-black tracking-tight text-zinc-900">
+                <h1 id="heroTitle" class="text-3xl md:text-4xl font-black tracking-tight text-zinc-900">
                     Enterprise Intelligence Engine
                 </h1>
-                <p class="text-zinc-600 text-xs md:text-sm max-w-lg mx-auto leading-normal">
-                    Secure sovereign search and real-time regional indexing. Engineered in Seeta, Uganda.
+                <p id="heroSubtitle" class="text-zinc-600 text-xs md:text-sm max-w-lg mx-auto leading-normal">
+                    Secure sovereign search, real-time financial tracking, and precise visual indexing. Engineered in Seeta, Uganda.
                 </p>
             </div>
 
-            <!-- Search Console Form (Clean Chrome/DuckDuckGo Style) -->
+            <!-- Search Console Form -->
             <form id="searchForm" class="flex flex-col gap-4 max-w-2xl mx-auto w-full">
-                <div class="flex flex-col sm:flex-row gap-2 shadow-sm rounded-full border border-zinc-300 hover:border-zinc-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 bg-white p-1.5 transition-all">
+                <div id="searchBoxContainer" class="flex flex-col sm:flex-row gap-2 shadow-sm rounded-full border border-zinc-300 hover:border-zinc-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 bg-white p-1.5 transition-all">
                     <input 
                         type="text" 
                         id="queryInput" 
-                        placeholder="Search web archives, parrot os, windows 10, or images..." 
+                        placeholder="Search web archives, windows 10, parrot os, or images..." 
                         required
                         class="flex-grow bg-transparent px-4 py-3 text-zinc-800 focus:outline-none text-sm md:text-base"
                     >
@@ -70,38 +83,26 @@
                 </div>
             </form>
 
-            <!-- Live Homepage Dashboard (Real Currencies & Real African News) -->
+            <!-- Live Homepage Dashboard (Bing Style Currencies & Yesterday/Today News) -->
             <div id="homeDashboard" class="space-y-6 pt-4">
-                <!-- Currency & Financial Rates Bar -->
-                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 shadow-xs">
-                    <h3 class="text-xs font-bold text-zinc-700 uppercase tracking-wider mb-3 flex items-center space-x-2">
-                        <span>💱 Real-Time Currency &amp; Exchange Rates (USD &amp; African Currencies)</span>
-                    </h3>
+                <!-- Bing-Style Financial Ticker Bar -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 shadow-xs card-container">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-bold text-zinc-700 uppercase tracking-wider flex items-center space-x-2">
+                            <span>📈 Live Financial &amp; Currency Ticker (Bing Market View)</span>
+                        </h3>
+                        <span class="text-[10px] text-zinc-400 font-mono">Live Feed &bull; Updated Today</span>
+                    </div>
                     <div id="currencyGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
-                            <span class="text-zinc-500 block">USD / UGX</span>
-                            <span id="rateUsdUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
-                            <span class="text-zinc-500 block">EUR / UGX</span>
-                            <span id="rateEurUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
-                            <span class="text-zinc-500 block">GBP / UGX</span>
-                            <span id="rateGbpUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
-                            <span class="text-zinc-500 block">KES / UGX</span>
-                            <span id="rateKesUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
-                        </div>
+                        <!-- Populated via script -->
                     </div>
                 </div>
 
-                <!-- Breaking News & African Headlines -->
+                <!-- Breaking News (Yesterday & Today) -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-sm font-bold text-zinc-900 uppercase tracking-wider">🌍 Latest News in Africa &amp; Uganda</h2>
-                        <span class="text-xs text-zinc-500">Live Feed</span>
+                        <h2 class="text-sm font-bold text-zinc-900 uppercase tracking-wider">🌍 Latest News (Yesterday &amp; Today in Africa &amp; Uganda)</h2>
+                        <span class="text-xs text-zinc-500">Verified Archives</span>
                     </div>
                     <div id="dashboardGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Populated via script -->
@@ -122,7 +123,7 @@
                 <!-- Image Gallery Grid -->
                 <div id="imageGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 hidden"></div>
                 
-                <!-- Pagination Controls (Fully Functional Across Multiple Pages) -->
+                <!-- Pagination Controls -->
                 <div id="paginationControls" class="flex justify-between items-center pt-6 border-t border-zinc-200">
                     <button id="prevBtn" onclick="changePage(-1)" class="bg-white border border-zinc-300 hover:bg-zinc-100 text-zinc-800 font-semibold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs">
                         &larr; Previous Page
@@ -138,7 +139,7 @@
 
     <!-- About & Donation Modal -->
     <div id="aboutModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white border border-zinc-200 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div class="bg-white border border-zinc-200 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto text-zinc-800">
             <button onclick="toggleAbout(false)" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-base font-bold cursor-pointer bg-zinc-100 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
             <div class="space-y-1">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">🇺🇬 Sovereign Technology &bull; Seeta, Uganda</span>
@@ -190,6 +191,7 @@
         const resultsContainer = document.getElementById('resultsContainer');
         const homeDashboard = document.getElementById('homeDashboard');
         const dashboardGrid = document.getElementById('dashboardGrid');
+        const currencyGrid = document.getElementById('currencyGrid');
         const resultsList = document.getElementById('resultsList');
         const imageGalleryGrid = document.getElementById('imageGalleryGrid');
         const resultCount = document.getElementById('resultCount');
@@ -199,12 +201,67 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const pageIndicator = document.getElementById('pageIndicator');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        const siteHeader = document.getElementById('siteHeader');
+        const logoText = document.getElementById('logoText');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        const searchBoxContainer = document.getElementById('searchBoxContainer');
 
         let currentCategory = 'all';
         let cachedResults = [];
         let cachedImages = [];
         let currentPage = 1;
-        const resultsPerPage = 15; // Exactly 15 items per page
+        const resultsPerPage = 15;
+
+        // Theme management: light -> dark -> cyberpunk -> light
+        let currentTheme = localStorage.getItem('cogni_theme') || 'light';
+        applyTheme(currentTheme);
+
+        function cycleTheme() {
+            if (currentTheme === 'light') currentTheme = 'dark';
+            else if (currentTheme === 'dark') currentTheme = 'cyberpunk';
+            else currentTheme = 'light';
+            
+            localStorage.setItem('cogni_theme', currentTheme);
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(theme) {
+            document.body.className = `${theme} min-h-screen flex flex-col justify-between transition-colors duration-200`;
+            
+            if (theme === 'light') {
+                themeIcon.innerText = '☀️';
+                themeLabel.innerText = 'Light Mode';
+                siteHeader.className = 'border-b border-zinc-200 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50 shadow-xs bg-white/90 backdrop-blur-md';
+                logoText.className = 'font-extrabold tracking-tight text-lg text-zinc-900';
+                heroTitle.className = 'text-3xl md:text-4xl font-black tracking-tight text-zinc-900';
+                heroSubtitle.className = 'text-zinc-600 text-xs md:text-sm max-w-lg mx-auto leading-normal';
+                searchBoxContainer.className = 'flex flex-col sm:flex-row gap-2 shadow-sm rounded-full border border-zinc-300 hover:border-zinc-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 bg-white p-1.5 transition-all';
+                queryInput.className = 'flex-grow bg-transparent px-4 py-3 text-zinc-800 focus:outline-none text-sm md:text-base';
+            } else if (theme === 'dark') {
+                themeIcon.innerText = '🌙';
+                themeLabel.innerText = 'Dark Mode';
+                siteHeader.className = 'border-b border-zinc-800 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50 shadow-xs bg-zinc-900/90 backdrop-blur-md';
+                logoText.className = 'font-extrabold tracking-tight text-lg text-zinc-100';
+                heroTitle.className = 'text-3xl md:text-4xl font-black tracking-tight text-zinc-100';
+                heroSubtitle.className = 'text-zinc-400 text-xs md:text-sm max-w-lg mx-auto leading-normal';
+                searchBoxContainer.className = 'flex flex-col sm:flex-row gap-2 shadow-sm rounded-full border border-zinc-700 hover:border-zinc-500 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-900 bg-zinc-900 p-1.5 transition-all';
+                queryInput.className = 'flex-grow bg-transparent px-4 py-3 text-zinc-100 focus:outline-none text-sm md:text-base';
+            } else {
+                // Cyberpunk Neon Mode
+                themeIcon.innerText = '⚡';
+                themeLabel.innerText = 'Cyberpunk';
+                siteHeader.className = 'border-b border-green-500/40 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50 shadow-lg bg-black/95 backdrop-blur-md';
+                logoText.className = 'font-extrabold tracking-widest text-lg text-green-400';
+                heroTitle.className = 'text-3xl md:text-4xl font-black tracking-tight text-green-400';
+                heroSubtitle.className = 'text-green-600 text-xs md:text-sm max-w-lg mx-auto leading-normal font-mono';
+                searchBoxContainer.className = 'flex flex-col sm:flex-row gap-2 shadow-lg rounded-full border border-green-500 bg-black p-1.5 transition-all';
+                queryInput.className = 'flex-grow bg-transparent px-4 py-3 text-green-300 focus:outline-none text-sm md:text-base font-mono';
+            }
+        }
 
         aboutBtn.addEventListener('click', () => toggleAbout(true));
         function toggleAbout(show) {
@@ -212,35 +269,46 @@
             else aboutModal.classList.add('hidden');
         }
 
-        // Load Real-Time Dashboard Feeds & Currencies
+        // Load Bing-Style Financial Ticker & News (Yesterday & Today)
         async function loadHomeDashboard() {
             try {
                 const res = await fetch('/api/v1/dashboard');
                 const data = await res.json();
                 
                 if (data.rates) {
-                    document.getElementById('rateUsdUgx').innerText = `UGX ${data.rates.USD_UGX}`;
-                    document.getElementById('rateEurUgx').innerText = `UGX ${data.rates.EUR_UGX}`;
-                    document.getElementById('rateGbpUgx').innerText = `UGX ${data.rates.GBP_UGX}`;
-                    document.getElementById('rateKesUgx').innerText = `UGX ${data.rates.KES_UGX}`;
+                    currencyGrid.innerHTML = data.rates.map(r => {
+                        const isUp = r.trend === 'up';
+                        const badgeColor = isUp ? 'text-emerald-600 bg-emerald-50 border-emerald-200' : 'text-red-600 bg-red-50 border-red-200';
+                        const arrow = isUp ? '▲' : '▼';
+                        return `
+                            <div class="bg-white dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-1">
+                                <div class="flex justify-between items-center text-[10px] text-zinc-500 font-bold">
+                                    <span>${r.pair}</span>
+                                    <span class="px-1.5 py-0.5 rounded border ${badgeColor}">${arrow} ${r.change}</span>
+                                </div>
+                                <div class="font-bold text-zinc-900 dark:text-zinc-100 text-sm">UGX ${r.value}</div>
+                            </div>
+                        `;
+                    }).join('');
                 }
 
                 if (data.items) {
                     dashboardGrid.innerHTML = data.items.map(item => `
-                        <div class="bg-white border border-zinc-200 p-4 rounded-2xl space-y-2.5 hover:border-blue-400 transition-all shadow-xs flex flex-col justify-between">
+                        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 rounded-2xl space-y-2.5 hover:border-blue-400 transition-all shadow-xs flex flex-col justify-between">
                             <div class="space-y-1.5">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700">${item.category}</span>
-                                    <span class="text-[10px] text-zinc-400">${item.timestamp}</span>
+                                    <span class="text-[10px] text-zinc-400 font-mono">${item.timestamp}</span>
                                 </div>
-                                <h4 class="font-bold text-zinc-900 text-xs leading-snug">${item.title}</h4>
-                                <p class="text-zinc-600 text-xs leading-relaxed">${item.snippet}</p>
+                                <h4 class="font-bold text-zinc-900 dark:text-zinc-100 text-xs leading-snug">${item.title}</h4>
+                                <p class="text-zinc-600 dark:text-zinc-400 text-xs leading-relaxed">${item.snippet}</p>
                             </div>
                             <a href="${item.url}" target="_blank" class="text-xs text-blue-600 font-semibold hover:underline pt-2 inline-block">&rarr; Read Full Article</a>
                         </div>
                     `).join('');
                 }
             } catch (e) {
+                currencyGrid.innerHTML = '<div class="col-span-4 text-center text-zinc-400 text-xs">Loading live financial tickers...</div>';
                 dashboardGrid.innerHTML = '<div class="col-span-3 text-center text-zinc-400 text-xs">Loading live African economic and news feeds...</div>';
             }
         }
@@ -292,12 +360,12 @@
                 }
 
                 imageGalleryGrid.innerHTML = paginatedImages.map(img => `
-                    <a href="${img.url}" target="_blank" class="group bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-blue-500 transition-all shadow-xs flex flex-col justify-between">
-                        <div class="h-32 bg-zinc-100 overflow-hidden relative flex items-center justify-center p-2">
+                    <a href="${img.url}" target="_blank" class="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500 transition-all shadow-xs flex flex-col justify-between">
+                        <div class="h-32 bg-zinc-100 dark:bg-zinc-950 overflow-hidden relative flex items-center justify-center p-2">
                             <img src="${img.thumb}" alt="${img.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-300" onerror="this.src='https://www.google.com/favicon.ico'">
-                            <span class="absolute bottom-2 right-2 text-[9px] bg-white/90 border border-zinc-200 text-zinc-700 px-1.5 py-0.5 rounded font-medium">${img.source}</span>
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white/90 dark:bg-black/90 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-1.5 py-0.5 rounded font-medium">${img.source}</span>
                         </div>
-                        <div class="p-2.5 text-xs text-zinc-800 truncate font-semibold">
+                        <div class="p-2.5 text-xs text-zinc-800 dark:text-zinc-200 truncate font-semibold">
                             ${img.title}
                         </div>
                     </a>
@@ -305,7 +373,6 @@
                 return;
             }
 
-            // Text Results (All, Web, News, Sports, Code)
             imageGalleryGrid.classList.add('hidden');
             resultsList.classList.remove('hidden');
 
@@ -332,14 +399,14 @@
             }
 
             resultsList.innerHTML = paginatedItems.map(item => `
-                <div class="bg-white border border-zinc-200 p-5 rounded-2xl space-y-2 hover:border-blue-300 transition-all shadow-xs group">
+                <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-2xl space-y-2 hover:border-blue-300 transition-all shadow-xs group">
                     <div class="flex items-center space-x-2 text-xs text-zinc-500 truncate">
                         <img src="https://www.google.com/s2/favicons?domain=${new URL(item.url).hostname}" class="w-4 h-4 rounded-xs shrink-0" onerror="this.style.display='none'">
-                        <a href="${item.url}" target="_blank" class="hover:underline truncate text-zinc-700">${item.url}</a>
-                        <span class="uppercase font-bold px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] ml-auto">${item.type}</span>
+                        <a href="${item.url}" target="_blank" class="hover:underline truncate text-zinc-700 dark:text-zinc-400">${item.url}</a>
+                        <span class="uppercase font-bold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-[10px] ml-auto">${item.type}</span>
                     </div>
-                    <a href="${item.url}" target="_blank" class="text-blue-600 group-hover:underline font-semibold text-base md:text-lg block leading-snug">${item.title}</a>
-                    <p class="text-zinc-600 text-xs md:text-sm leading-relaxed">${item.snippet}</p>
+                    <a href="${item.url}" target="_blank" class="text-blue-600 dark:text-blue-400 group-hover:underline font-semibold text-base md:text-lg block leading-snug">${item.title}</a>
+                    <p class="text-zinc-600 dark:text-zinc-300 text-xs md:text-sm leading-relaxed">${item.snippet}</p>
                 </div>
             `).join('');
         }
