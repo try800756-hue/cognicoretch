@@ -5,127 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CogniCoreTech | Sovereign Enterprise Intelligence Engine &bull; Seeta, Uganda</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        /* Uganda Flag Colour Accents & Watermark Background */
-        .uganda-bg {
-            background-color: #030406;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(254, 209, 0, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(212, 39, 44, 0.05) 0%, transparent 40%),
-                linear-gradient(to bottom, rgba(5, 6, 8, 0.95), rgba(3, 4, 6, 0.98));
-        }
-        .watermark-pattern {
-            background-image: repeating-linear-gradient(45deg, rgba(254, 209, 0, 0.015) 0, rgba(254, 209, 0, 0.015) 1px, transparent 0, transparent 50px);
-        }
-    </style>
 </head>
-<body class="uganda-bg watermark-pattern text-zinc-100 min-h-screen flex flex-col justify-between selection:bg-[#FED100] selection:text-black font-mono">
+<body class="bg-white text-zinc-800 min-h-screen flex flex-col justify-between font-sans">
     
-    <!-- Top Navigation Bar -->
-    <header class="border-b border-[#FED100]/20 px-6 py-4 flex justify-between items-center bg-zinc-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl">
-        <div class="flex items-center space-x-4">
-            <div class="flex items-center space-x-1.5">
-                <div class="w-3 h-3 bg-black border border-zinc-700 rounded-full"></div>
-                <div class="w-3 h-3 bg-[#FED100] rounded-full"></div>
-                <div class="w-3 h-3 bg-[#D4272C] rounded-full animate-pulse"></div>
-            </div>
-            <span class="font-black tracking-wider text-base md:text-lg">COGNI<span class="text-[#FED100]">CORE</span>.<span class="text-[#D4272C]">TECH</span></span>
-            <span class="hidden md:inline-flex items-center space-x-1.5 text-[10px] bg-[#FED100]/10 text-[#FED100] border border-[#FED100]/30 px-2.5 py-1 rounded font-bold tracking-wide">
-                <span>🇺🇬</span><span>UGANDA &bull; SEETA NODE</span>
+    <!-- Top Navigation Bar (Clean & Professional) -->
+    <header class="border-b border-zinc-200 px-6 py-3.5 flex justify-between items-center bg-white sticky top-0 z-50 shadow-xs">
+        <div class="flex items-center space-x-3">
+            <span class="font-extrabold tracking-tight text-lg text-zinc-900">COGNI<span class="text-blue-600">CORE</span>.<span class="text-red-600">TECH</span></span>
+            <span class="inline-flex items-center space-x-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-md font-medium">
+                <span>🇺🇬</span><span>Seeta, Uganda Node</span>
             </span>
         </div>
         <div class="flex items-center space-x-3">
-            <button id="aboutBtn" class="text-xs text-black hover:bg-[#FED100] bg-[#FED100] border border-[#FED100] px-3.5 py-2 rounded-xl transition-all cursor-pointer font-black tracking-wider shadow-[0_0_15px_rgba(254,209,0,0.3)]">
-                ABOUT &amp; DONATE
+            <button id="aboutBtn" class="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-2 rounded-lg transition-all cursor-pointer shadow-xs">
+                About &amp; Donate
             </button>
-            <div class="text-xs text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded-xl bg-zinc-900/80 hidden sm:flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>STATUS: <span class="text-emerald-400 font-bold">SOVEREIGN ONLINE</span></span>
+            <div class="text-xs text-zinc-600 border border-zinc-200 px-3 py-1.5 rounded-lg bg-zinc-50 hidden sm:flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Status: <span class="text-emerald-700 font-semibold">Online</span></span>
             </div>
         </div>
     </header>
 
     <!-- Main Content Body -->
-    <main class="flex-grow flex flex-col items-center px-4 py-10">
-        <div class="w-full max-w-5xl space-y-8">
+    <main class="flex-grow flex flex-col items-center px-4 py-8">
+        <div class="w-full max-w-4xl space-y-8">
             
-            <!-- Hero Title & Subtitle with Uganda Watermark Badge -->
-            <div class="text-center space-y-3 relative">
-                <div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-10 pointer-events-none text-6xl font-black tracking-widest text-[#FED100]">
-                    COGNI-UGANDA
-                </div>
-                <div class="inline-flex items-center space-x-2 bg-zinc-950/90 border border-zinc-800 px-4 py-1.5 rounded-full text-xs text-zinc-400 mb-1 shadow-inner">
-                    <span class="w-2 h-2 rounded-full bg-[#D4272C]"></span>
-                    <span>Sovereign Intelligence &bull; Global &amp; East African Feeds</span>
-                </div>
-                <h1 class="text-3xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-zinc-100 via-[#FED100] to-[#D4272C] bg-clip-text text-transparent">
+            <!-- Hero Title & Subtitle -->
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight text-zinc-900">
                     Enterprise Intelligence Engine
                 </h1>
-                <p class="text-zinc-400 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                    Zero-trust architecture engineered in Seeta, Uganda &bull; Real-time news, football, sports, code, and precision image indexing.
+                <p class="text-zinc-600 text-xs md:text-sm max-w-lg mx-auto leading-normal">
+                    Secure sovereign search and real-time regional indexing. Engineered in Seeta, Uganda.
                 </p>
             </div>
 
-            <!-- Search Console Form -->
-            <form id="searchForm" class="flex flex-col gap-4 max-w-3xl mx-auto w-full">
-                <div class="flex flex-col sm:flex-row gap-3 shadow-2xl">
+            <!-- Search Console Form (Clean Chrome/DuckDuckGo Style) -->
+            <form id="searchForm" class="flex flex-col gap-4 max-w-2xl mx-auto w-full">
+                <div class="flex flex-col sm:flex-row gap-2 shadow-sm rounded-full border border-zinc-300 hover:border-zinc-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 bg-white p-1.5 transition-all">
                     <input 
                         type="text" 
                         id="queryInput" 
-                        placeholder="Search web archives, parrot os, code, or images..." 
+                        placeholder="Search web archives, parrot os, windows 10, or images..." 
                         required
-                        class="flex-grow bg-zinc-900/90 border border-zinc-700/80 rounded-2xl px-5 py-4 text-zinc-100 focus:outline-none focus:border-[#FED100] focus:ring-2 focus:ring-[#FED100]/30 text-sm md:text-base transition-all shadow-inner"
+                        class="flex-grow bg-transparent px-4 py-3 text-zinc-800 focus:outline-none text-sm md:text-base"
                     >
                     <button 
                         type="submit" 
-                        class="bg-[#FED100] hover:bg-amber-400 text-black font-black px-8 py-4 rounded-2xl transition-all text-sm tracking-wider cursor-pointer shadow-[0_0_25px_rgba(254,209,0,0.4)]"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full transition-all text-sm tracking-wide cursor-pointer shadow-xs"
                     >
-                        EXECUTE SEARCH
+                        Search
                     </button>
                 </div>
 
                 <!-- Category Filtering Bar -->
-                <div class="flex justify-center flex-wrap gap-2 text-xs py-2">
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-[#FED100] text-black font-black transition-all cursor-pointer shadow" data-category="all">All Feeds</button>
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="web">Web Results</button>
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="news">News &amp; Blogs</button>
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="sports">Football &amp; Sports</button>
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="code">FOSS &amp; Code</button>
-                    <button type="button" class="filter-btn px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="images">Images Gallery</button>
+                <div class="flex justify-center flex-wrap gap-2 text-xs pt-1">
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-blue-600 text-white font-semibold transition-all cursor-pointer shadow-xs" data-category="all">All Feeds</button>
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 hover:bg-zinc-200 transition-all cursor-pointer" data-category="web">Web Results</button>
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 hover:bg-zinc-200 transition-all cursor-pointer" data-category="news">African &amp; Global News</button>
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 hover:bg-zinc-200 transition-all cursor-pointer" data-category="sports">Football &amp; Sports</button>
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 hover:bg-zinc-200 transition-all cursor-pointer" data-category="code">FOSS &amp; Code</button>
+                    <button type="button" class="filter-btn px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-700 hover:bg-zinc-200 transition-all cursor-pointer" data-category="images">Images Gallery</button>
                 </div>
             </form>
 
-            <!-- Live Homepage Dashboard Feed (Shown before search or when cleared) -->
+            <!-- Live Homepage Dashboard (Real Currencies & Real African News) -->
             <div id="homeDashboard" class="space-y-6 pt-4">
-                <div class="border-l-4 border-[#D4272C] pl-4 space-y-1">
-                    <h2 class="text-base font-black text-white uppercase tracking-wider">Live Sovereign Dashboard &bull; News &amp; Sports Feeds</h2>
-                    <p class="text-xs text-zinc-400">Real-time breaking updates curated directly from global and East African index nodes.</p>
+                <!-- Currency & Financial Rates Bar -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 shadow-xs">
+                    <h3 class="text-xs font-bold text-zinc-700 uppercase tracking-wider mb-3 flex items-center space-x-2">
+                        <span>💱 Real-Time Currency &amp; Exchange Rates (USD &amp; African Currencies)</span>
+                    </h3>
+                    <div id="currencyGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+                            <span class="text-zinc-500 block">USD / UGX</span>
+                            <span id="rateUsdUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+                            <span class="text-zinc-500 block">EUR / UGX</span>
+                            <span id="rateEurUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+                            <span class="text-zinc-500 block">GBP / UGX</span>
+                            <span id="rateGbpUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+                            <span class="text-zinc-500 block">KES / UGX</span>
+                            <span id="rateKesUgx" class="font-bold text-zinc-900 text-sm">Loading...</span>
+                        </div>
+                    </div>
                 </div>
-                <div id="dashboardGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Dynamic Dashboard Cards populated via script -->
+
+                <!-- Breaking News & African Headlines -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold text-zinc-900 uppercase tracking-wider">🌍 Latest News in Africa &amp; Uganda</h2>
+                        <span class="text-xs text-zinc-500">Live Feed</span>
+                    </div>
+                    <div id="dashboardGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Populated via script -->
+                    </div>
                 </div>
             </div>
 
             <!-- Results Output Display -->
             <div id="resultsContainer" class="hidden text-left mt-8 space-y-6">
-                <div class="flex justify-between items-center border-b border-zinc-800/80 pb-3">
-                    <h3 id="resultStatusText" class="text-xs text-zinc-400 uppercase tracking-widest font-bold">High-Density Execution Feed (15 Items/Page)</h3>
-                    <span id="resultCount" class="text-xs text-[#FED100] font-bold bg-amber-950/50 border border-[#FED100]/30 px-3 py-1 rounded-lg">0 records indexed</span>
+                <div class="flex justify-between items-center border-b border-zinc-200 pb-3">
+                    <h3 id="resultStatusText" class="text-xs text-zinc-600 uppercase tracking-wider font-bold">Search Execution Feed (15 Items / Page)</h3>
+                    <span id="resultCount" class="text-xs text-blue-600 font-bold bg-blue-50 border border-blue-200 px-3 py-1 rounded-md">0 records indexed</span>
                 </div>
 
-                <!-- Dynamic Results List (Web / News / Sports / Code) -->
-                <div id="resultsList" class="space-y-4 text-sm"></div>
+                <!-- Dynamic Results List -->
+                <div id="resultsList" class="space-y-5 text-sm"></div>
 
-                <!-- Image Gallery Grid (Active when Images tab is selected) -->
+                <!-- Image Gallery Grid -->
                 <div id="imageGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 hidden"></div>
                 
-                <!-- Pagination Controls -->
-                <div id="paginationControls" class="flex justify-between items-center pt-6 border-t border-zinc-800/80">
-                    <button id="prevBtn" onclick="changePage(-1)" class="bg-zinc-900 border border-zinc-800 hover:border-[#FED100] text-zinc-300 font-bold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                <!-- Pagination Controls (Fully Functional Across Multiple Pages) -->
+                <div id="paginationControls" class="flex justify-between items-center pt-6 border-t border-zinc-200">
+                    <button id="prevBtn" onclick="changePage(-1)" class="bg-white border border-zinc-300 hover:bg-zinc-100 text-zinc-800 font-semibold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs">
                         &larr; Previous Page
                     </button>
-                    <span id="pageIndicator" class="text-xs font-mono text-zinc-400 font-bold">Page 1 of 1</span>
-                    <button id="nextBtn" onclick="changePage(1)" class="bg-zinc-900 border border-zinc-800 hover:border-[#FED100] text-zinc-300 font-bold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                    <span id="pageIndicator" class="text-xs font-mono text-zinc-600 font-bold">Page 1 of 1</span>
+                    <button id="nextBtn" onclick="changePage(1)" class="bg-white border border-zinc-300 hover:bg-zinc-100 text-zinc-800 font-semibold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs">
                         Next Page &rarr;
                     </button>
                 </div>
@@ -133,63 +136,54 @@
         </div>
     </main>
 
-    <!-- Active About & International Donation Modal -->
-    <div id="aboutModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-2xl w-full p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="toggleAbout(false)" class="absolute top-5 right-5 text-zinc-400 hover:text-white text-lg font-black cursor-pointer bg-zinc-800 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
-            <div class="space-y-2">
-                <div class="flex items-center space-x-2 text-[#FED100] text-xs font-bold uppercase tracking-widest">
-                    <span>🇺🇬 Sovereign Technology &bull; Seeta, Uganda</span>
-                </div>
-                <h2 class="text-2xl font-black text-white">About CogniCoreTech Enterprise</h2>
+    <!-- About & Donation Modal -->
+    <div id="aboutModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border border-zinc-200 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleAbout(false)" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-base font-bold cursor-pointer bg-zinc-100 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
+            <div class="space-y-1">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">🇺🇬 Sovereign Technology &bull; Seeta, Uganda</span>
+                <h2 class="text-xl font-black text-zinc-900">About CogniCoreTech Enterprise</h2>
             </div>
             
-            <div class="space-y-4 text-xs md:text-sm text-zinc-300 leading-relaxed font-mono">
+            <div class="space-y-4 text-xs md:text-sm text-zinc-700 leading-relaxed">
                 <p>
-                    <strong class="text-[#FED100]">CogniCoreTech</strong> is an independent enterprise search engine and zero-trust developer infrastructure built from scratch in <strong class="text-white">Seeta, Uganda</strong> by <strong class="text-white">Tarvin Os (WILLIAMS)</strong>.
+                    <strong class="text-zinc-900">CogniCoreTech</strong> is an independent enterprise search engine and zero-trust developer infrastructure built in <strong class="text-zinc-900">Seeta, Uganda</strong> by <strong class="text-zinc-900">Tarvin Os (WILLIAMS)</strong>.
                 </p>
                 
-                <!-- International & Local Donation Hub -->
-                <div class="space-y-3 bg-zinc-950 p-5 rounded-2xl border border-[#FED100]/30 shadow-inner">
-                    <h3 class="font-bold text-[#FED100] uppercase text-xs flex items-center space-x-2">
-                      <span>🌍 Support Our Enterprise from America, Europe &amp; Worldwide</span>
-                    </h3>
-                    <p class="text-zinc-400 text-xs">
-                        Donors in America and worldwide can contribute securely via global payment rails or direct mobile money if residing in East Africa:
+                <div class="space-y-3 bg-zinc-50 p-4 rounded-xl border border-zinc-200 shadow-xs">
+                    <h3 class="font-bold text-zinc-900 uppercase text-xs">🌍 Support &amp; Donations (America &amp; Worldwide)</h3>
+                    <p class="text-zinc-600 text-xs">
+                        Contributors worldwide can support our development infrastructure through secure global channels or mobile money:
                     </p>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                        <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-xl space-y-1">
-                            <span class="text-[10px] text-zinc-500 uppercase font-bold">🇺🇬 East Africa (Mobile Money)</span>
-                            <div class="text-[#FED100] font-black text-sm">0731662819</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        <div class="bg-white p-3 rounded-lg border border-zinc-200 shadow-xs space-y-1">
+                            <span class="text-[10px] text-zinc-500 uppercase font-bold">🇺🇬 Uganda (Mobile Money)</span>
+                            <div class="text-blue-600 font-bold text-sm">0731662819</div>
                         </div>
-                        <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-xl space-y-1">
-                            <span class="text-[10px] text-zinc-500 uppercase font-bold">🇺🇸 America &amp; Global (Stripe / PayPal)</span>
-                            <a href="https://paypal.me/cognicoretch" target="_blank" class="text-cyan-400 font-bold text-xs hover:underline block truncate">paypal.me/cognicoretch</a>
+                        <div class="bg-white p-3 rounded-lg border border-zinc-200 shadow-xs space-y-1">
+                            <span class="text-[10px] text-zinc-500 uppercase font-bold">🇺🇸 America &amp; Global (PayPal)</span>
+                            <a href="https://paypal.me/cognicoretch" target="_blank" class="text-blue-600 font-bold text-xs hover:underline block truncate">paypal.me/cognicoretch</a>
                         </div>
                     </div>
                 </div>
-
-                <p class="text-zinc-400 text-xs">
-                    Committed to absolute data privacy, Arch Linux FOSS workflows, and building world-class technology from East Africa to the global stage.
-                </p>
             </div>
 
-            <div class="pt-4 border-t border-zinc-800 flex justify-end">
-                <button onclick="toggleAbout(false)" class="bg-[#FED100] hover:bg-amber-400 text-black font-black px-6 py-3 rounded-xl text-xs transition-all cursor-pointer">
-                    CLOSE PANEL
+            <div class="pt-3 border-t border-zinc-200 flex justify-end">
+                <button onclick="toggleAbout(false)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer">
+                    Close Panel
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-800/80 px-6 py-6 text-center text-xs text-zinc-600 bg-zinc-950/80 flex flex-col sm:flex-row justify-between items-center gap-3">
-        <span>&copy; 2026 CogniCoreTech. Zero-Trust Sovereign Architecture &bull; Built in Seeta, Uganda 🇺🇬</span>
-        <span class="text-[#FED100] font-mono">Uganda Mobile Money: 0731662819 | Global PayPal Supported</span>
+    <footer class="border-t border-zinc-200 px-6 py-5 text-center text-xs text-zinc-500 bg-white flex flex-col sm:flex-row justify-between items-center gap-2">
+        <span>&copy; 2026 CogniCoreTech. Zero-Trust Sovereign Architecture &bull; Seeta, Uganda 🇺🇬</span>
+        <span class="text-zinc-700 font-medium">Mobile Money: 0731662819 | Global PayPal Supported</span>
     </footer>
 
-    <!-- JavaScript Gateway Application Logic -->
+    <!-- JavaScript Application Logic -->
     <script>
         const form = document.getElementById('searchForm');
         const queryInput = document.getElementById('queryInput');
@@ -210,37 +204,44 @@
         let cachedResults = [];
         let cachedImages = [];
         let currentPage = 1;
-        const resultsPerPage = 15; // Exactly 15 items per page as requested
+        const resultsPerPage = 15; // Exactly 15 items per page
 
         aboutBtn.addEventListener('click', () => toggleAbout(true));
-
         function toggleAbout(show) {
             if (show) aboutModal.classList.remove('hidden');
             else aboutModal.classList.add('hidden');
         }
 
-        // Load Homepage Dashboard Feeds on startup
+        // Load Real-Time Dashboard Feeds & Currencies
         async function loadHomeDashboard() {
             try {
                 const res = await fetch('/api/v1/dashboard');
                 const data = await res.json();
+                
+                if (data.rates) {
+                    document.getElementById('rateUsdUgx').innerText = `UGX ${data.rates.USD_UGX}`;
+                    document.getElementById('rateEurUgx').innerText = `UGX ${data.rates.EUR_UGX}`;
+                    document.getElementById('rateGbpUgx').innerText = `UGX ${data.rates.GBP_UGX}`;
+                    document.getElementById('rateKesUgx').innerText = `UGX ${data.rates.KES_UGX}`;
+                }
+
                 if (data.items) {
                     dashboardGrid.innerHTML = data.items.map(item => `
-                        <div class="bg-zinc-900/90 border border-zinc-800 p-5 rounded-2xl space-y-3 hover:border-[#FED100]/50 transition-all shadow-xl flex flex-col justify-between">
-                            <div class="space-y-2">
+                        <div class="bg-white border border-zinc-200 p-4 rounded-2xl space-y-2.5 hover:border-blue-400 transition-all shadow-xs flex flex-col justify-between">
+                            <div class="space-y-1.5">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded bg-zinc-800 text-[#FED100]">${item.category}</span>
-                                    <span class="text-[10px] text-zinc-500">${item.timestamp}</span>
+                                    <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700">${item.category}</span>
+                                    <span class="text-[10px] text-zinc-400">${item.timestamp}</span>
                                 </div>
-                                <h3 class="font-bold text-white text-sm leading-snug">${item.title}</h3>
-                                <p class="text-zinc-400 text-xs leading-relaxed">${item.snippet}</p>
+                                <h4 class="font-bold text-zinc-900 text-xs leading-snug">${item.title}</h4>
+                                <p class="text-zinc-600 text-xs leading-relaxed">${item.snippet}</p>
                             </div>
-                            <a href="${item.url}" target="_blank" class="text-xs text-[#FED100] font-bold hover:underline pt-2 inline-block">&rarr; Read Full Report</a>
+                            <a href="${item.url}" target="_blank" class="text-xs text-blue-600 font-semibold hover:underline pt-2 inline-block">&rarr; Read Full Article</a>
                         </div>
                     `).join('');
                 }
             } catch (e) {
-                dashboardGrid.innerHTML = '<div class="col-span-3 text-center text-zinc-500 text-xs">Sovereign dashboard feed syncing...</div>';
+                dashboardGrid.innerHTML = '<div class="col-span-3 text-center text-zinc-400 text-xs">Loading live African economic and news feeds...</div>';
             }
         }
         loadHomeDashboard();
@@ -248,11 +249,11 @@
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => {
-                    b.classList.remove('bg-[#FED100]', 'text-black', 'font-black', 'shadow');
-                    b.classList.add('bg-zinc-900', 'border', 'border-zinc-800', 'text-zinc-400');
+                    b.classList.remove('bg-blue-600', 'text-white', 'font-semibold', 'shadow-xs');
+                    b.classList.add('bg-zinc-100', 'border', 'border-zinc-200', 'text-zinc-700');
                 });
-                btn.classList.remove('bg-zinc-900', 'border', 'border-zinc-800', 'text-zinc-400');
-                btn.classList.add('bg-[#FED100]', 'text-black', 'font-black', 'shadow');
+                btn.classList.remove('bg-zinc-100', 'border', 'border-zinc-200', 'text-zinc-700');
+                btn.classList.add('bg-blue-600', 'text-white', 'font-semibold', 'shadow-xs');
                 currentCategory = btn.getAttribute('data-category');
                 currentPage = 1;
                 renderResults();
@@ -262,7 +263,7 @@
         function changePage(direction) {
             currentPage += direction;
             renderResults();
-            window.scrollTo({ top: 300, behavior: 'smooth' });
+            window.scrollTo({ top: 250, behavior: 'smooth' });
         }
 
         function renderResults() {
@@ -286,17 +287,17 @@
                 nextBtn.disabled = currentPage === totalPages || totalPages === 0;
 
                 if (paginatedImages.length === 0) {
-                    imageGalleryGrid.innerHTML = `<div class="col-span-full bg-zinc-900/60 border border-zinc-800/80 p-8 rounded-2xl text-center text-zinc-400">No exact image assets found for this query. Execute a search first.</div>`;
+                    imageGalleryGrid.innerHTML = `<div class="col-span-full bg-zinc-50 border border-zinc-200 p-8 rounded-xl text-center text-zinc-500">No matching image assets found. Try another query.</div>`;
                     return;
                 }
 
                 imageGalleryGrid.innerHTML = paginatedImages.map(img => `
-                    <a href="${img.url}" target="_blank" class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-[#FED100] transition-all shadow-lg flex flex-col justify-between">
-                        <div class="h-36 bg-zinc-950 overflow-hidden relative flex items-center justify-center">
-                            <img src="${img.thumb}" alt="${img.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80'">
-                            <span class="absolute bottom-2 right-2 text-[9px] bg-black/80 text-[#FED100] px-2 py-0.5 rounded font-bold">${img.source}</span>
+                    <a href="${img.url}" target="_blank" class="group bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-blue-500 transition-all shadow-xs flex flex-col justify-between">
+                        <div class="h-32 bg-zinc-100 overflow-hidden relative flex items-center justify-center p-2">
+                            <img src="${img.thumb}" alt="${img.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-all duration-300" onerror="this.src='https://www.google.com/favicon.ico'">
+                            <span class="absolute bottom-2 right-2 text-[9px] bg-white/90 border border-zinc-200 text-zinc-700 px-1.5 py-0.5 rounded font-medium">${img.source}</span>
                         </div>
-                        <div class="p-3 text-xs text-zinc-300 truncate font-bold">
+                        <div class="p-2.5 text-xs text-zinc-800 truncate font-semibold">
                             ${img.title}
                         </div>
                     </a>
@@ -326,21 +327,19 @@
             nextBtn.disabled = currentPage === totalPages || totalPages === 0;
 
             if (paginatedItems.length === 0) {
-                resultsList.innerHTML = `<div class="bg-zinc-900/60 border border-zinc-800/80 p-8 rounded-2xl text-center text-zinc-400">No records found for category '${currentCategory}'.</div>`;
+                resultsList.innerHTML = `<div class="bg-zinc-50 border border-zinc-200 p-8 rounded-xl text-center text-zinc-500">No records found for category '${currentCategory}'.</div>`;
                 return;
             }
 
             resultsList.innerHTML = paginatedItems.map(item => `
-                <div class="bg-zinc-900/80 border border-zinc-800/90 p-5 rounded-2xl space-y-2.5 hover:border-[#FED100]/60 transition-all shadow-xl group">
-                    <div class="flex justify-between items-start gap-4">
-                        <a href="${item.url}" target="_blank" class="text-[#FED100] group-hover:text-amber-300 font-bold text-base md:text-lg leading-snug underline-offset-4 hover:underline">${item.title}</a>
-                        <span class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-300 tracking-wider border border-zinc-700/60 shrink-0">${item.type}</span>
+                <div class="bg-white border border-zinc-200 p-5 rounded-2xl space-y-2 hover:border-blue-300 transition-all shadow-xs group">
+                    <div class="flex items-center space-x-2 text-xs text-zinc-500 truncate">
+                        <img src="https://www.google.com/s2/favicons?domain=${new URL(item.url).hostname}" class="w-4 h-4 rounded-xs shrink-0" onerror="this.style.display='none'">
+                        <a href="${item.url}" target="_blank" class="hover:underline truncate text-zinc-700">${item.url}</a>
+                        <span class="uppercase font-bold px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] ml-auto">${item.type}</span>
                     </div>
-                    <p class="text-zinc-300 text-xs md:text-sm leading-relaxed">${item.snippet}</p>
-                    <div class="text-[11px] text-zinc-500 truncate pt-1 flex items-center space-x-2">
-                        <span class="text-zinc-600 font-bold">Source:</span> 
-                        <a href="${item.url}" target="_blank" class="hover:underline text-cyan-500/80 truncate">${item.url}</a>
-                    </div>
+                    <a href="${item.url}" target="_blank" class="text-blue-600 group-hover:underline font-semibold text-base md:text-lg block leading-snug">${item.title}</a>
+                    <p class="text-zinc-600 text-xs md:text-sm leading-relaxed">${item.snippet}</p>
                 </div>
             `).join('');
         }
@@ -352,7 +351,7 @@
 
             resultsContainer.classList.remove('hidden');
             homeDashboard.classList.add('hidden');
-            resultsList.innerHTML = '<div class="text-[#FED100] animate-pulse text-center py-16 font-bold tracking-wider">Indexing high-density sovereign records & exact visual assets from Seeta node...</div>';
+            resultsList.innerHTML = '<div class="text-blue-600 animate-pulse text-center py-16 font-semibold">Searching sovereign records &exact visual indexes...</div>';
             pageIndicator.innerText = 'Page 1 of 1';
 
             try {
@@ -365,10 +364,10 @@
                     currentPage = 1;
                     renderResults();
                 } else {
-                    resultsList.innerHTML = '<div class="text-red-400 text-center py-8 font-bold">Gateway execution error returned.</div>';
+                    resultsList.innerHTML = '<div class="text-red-500 text-center py-8 font-semibold">Search execution error.</div>';
                 }
             } catch (err) {
-                resultsList.innerHTML = `<div class="text-red-400 text-center py-8 font-bold">Connection failed: ${err.message}</div>`;
+                resultsList.innerHTML = `<div class="text-red-500 text-center py-8 font-semibold">Connection failed: ${err.message}</div>`;
             }
         });
     </script>
