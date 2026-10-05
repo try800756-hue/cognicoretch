@@ -3,53 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CogniCoreTech | Secure Developer Gateway</title>
+    <title>CogniCoreTech | Enterprise Intelligence Gateway</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
     
     <!-- Top Nav -->
-    <header class="border-b border-zinc-800 px-6 py-4 flex justify-between items-center bg-zinc-900/50 backdrop-blur-md">
+    <header class="border-b border-zinc-800 px-6 py-4 flex justify-between items-center bg-zinc-900/50 backdrop-blur-md sticky top-0 z-50">
         <div class="flex items-center space-x-3">
             <div class="w-3 h-3 bg-cyan-500 rounded-full animate-pulse"></div>
             <span class="font-mono font-bold tracking-wider text-lg">COGNI<span class="text-cyan-400">CORE</span>.TECH</span>
         </div>
-        <div class="text-xs font-mono text-zinc-400 border border-zinc-800 px-3 py-1 rounded-full">
-            STATUS: <span class="text-emerald-400">ONLINE</span>
+        <div class="flex items-center space-x-4">
+            <span class="text-xs font-mono text-zinc-400 hidden sm:inline">SECURE GATEWAY v0.4</span>
+            <div class="text-xs font-mono text-zinc-400 border border-zinc-800 px-3 py-1 rounded-full">
+                STATUS: <span class="text-emerald-400">ONLINE</span>
+            </div>
         </div>
     </header>
 
-    <!-- Main Search Container -->
-    <main class="flex-grow flex flex-col items-center justify-center px-4 py-12">
-        <div class="w-full max-w-2xl text-center space-y-6">
+    <!-- Main Container -->
+    <main class="flex-grow flex flex-col items-center px-4 py-12">
+        <div class="w-full max-w-3xl text-center space-y-6">
             <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">
-                Privacy-First Enterprise Search
+                Enterprise Intelligence Engine
             </h1>
             <p class="text-zinc-400 text-sm md:text-base font-mono">
-                Decentralized developer gateway powered by independent infrastructure.
+                Zero-cost decentralized search aggregation across web, news, and developer feeds.
             </p>
 
             <!-- Search Form -->
-            <form id="searchForm" class="flex flex-col sm:flex-row gap-3 mt-6">
-                <input 
-                    type="text" 
-                    id="queryInput" 
-                    placeholder="Enter query or target package..." 
-                    required
-                    class="flex-grow bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 font-mono text-sm"
-                >
-                <button 
-                    type="submit" 
-                    class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-lg transition-all font-mono text-sm tracking-wide cursor-pointer"
-                >
-                    QUERY GATEWAY
-                </button>
+            <form id="searchForm" class="flex flex-col gap-4 mt-6">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="text" 
+                        id="queryInput" 
+                        placeholder="Search documentation, news, or web data..." 
+                        required
+                        class="flex-grow bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 font-mono text-sm shadow-inner"
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-lg transition-all font-mono text-sm tracking-wide cursor-pointer shadow-lg"
+                    >
+                        EXPLORE GATEWAY
+                    </button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex justify-center gap-2 font-mono text-xs overflow-x-auto pb-2">
+                    <button type="button" class="filter-btn px-4 py-1.5 rounded-full bg-cyan-500 text-black font-bold transition-all cursor-pointer" data-category="all">All</button>
+                    <button type="button" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="news">News & Blogs</button>
+                    <button type="button" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="code">FOSS & Code</button>
+                    <button type="button" class="filter-btn px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer" data-category="media">Media & Reference</button>
+                </div>
             </form>
 
             <!-- Results Section -->
             <div id="resultsContainer" class="hidden text-left mt-8 space-y-4">
-                <h3 class="text-xs font-mono text-zinc-500 uppercase tracking-widest border-b border-zinc-800 pb-2">Execution Output</h3>
-                <div id="resultsList" class="space-y-3 font-mono text-sm"></div>
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                    <h3 class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Aggregated Execution Feed</h3>
+                    <span id="resultCount" class="text-xs font-mono text-cyan-400">0 results found</span>
+                </div>
+                <div id="resultsList" class="space-y-4 font-mono text-sm"></div>
             </div>
         </div>
     </main>
@@ -65,6 +81,25 @@
         const queryInput = document.getElementById('queryInput');
         const resultsContainer = document.getElementById('resultsContainer');
         const resultsList = document.getElementById('resultsList');
+        const resultCount = document.getElementById('resultCount');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        let currentCategory = 'all';
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-cyan-500', 'text-black', 'font-bold');
+                    b.classList.add('bg-zinc-900', 'border', 'border-zinc-800', 'text-zinc-400');
+                });
+                btn.classList.remove('bg-zinc-900', 'border', 'border-zinc-800', 'text-zinc-400');
+                btn.classList.add('bg-cyan-500', 'text-black', 'font-bold');
+                currentCategory = btn.getAttribute('data-category');
+                if(queryInput.value.trim()) {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -72,25 +107,29 @@
             if (!query) return;
 
             resultsContainer.classList.remove('hidden');
-            resultsList.innerHTML = '<div class="text-cyan-400 animate-pulse">Querying decentralized nodes...</div>';
+            resultsList.innerHTML = '<div class="text-cyan-400 animate-pulse text-center py-8">Aggregating decentralized intelligence nodes across categories...</div>';
 
             try {
-                // Automatically points to your live Render backend URL or fallback relative path
-                const response = await fetch(`/api/v1/search?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`/api/v1/search?q=${encodeURIComponent(query)}&category=${currentCategory}`);
                 const data = await response.json();
 
                 if (response.ok && data.results) {
+                    resultCount.innerText = `${data.results.length} nodes indexed`;
                     resultsList.innerHTML = data.results.map(item => `
-                        <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg space-y-1">
-                            <a href="${item.url}" target="_blank" class="text-cyan-400 hover:underline font-bold">${item.title}</a>
-                            <p class="text-zinc-400 text-xs">${item.snippet}</p>
+                        <div class="bg-zinc-900/80 border border-zinc-800 p-5 rounded-xl space-y-2 hover:border-zinc-700 transition-all shadow-md">
+                            <div class="flex justify-between items-start">
+                                <a href="${item.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-bold text-base leading-snug">${item.title}</a>
+                                <span class="text-[10px] uppercase font-mono bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded">${item.type || 'web'}</span>
+                            </div>
+                            <p class="text-zinc-300 text-xs md:text-sm leading-relaxed">${item.snippet}</p>
+                            <div class="text-[11px] text-zinc-500 truncate pt-1">Source URL: <a href="${item.url}" target="_blank" class="hover:underline text-zinc-400">${item.url}</a></div>
                         </div>
                     `).join('');
                 } else {
-                    resultsList.innerHTML = '<div class="text-red-400">Gateway execution error returned.</div>';
+                    resultsList.innerHTML = '<div class="text-red-400 text-center py-4">Gateway execution error returned.</div>';
                 }
             } catch (err) {
-                resultsList.innerHTML = `<div class="text-red-400">Connection failed: ${err.message}</div>`;
+                resultsList.innerHTML = `<div class="text-red-400 text-center py-4">Connection failed: ${err.message}</div>`;
             }
         });
     </script>

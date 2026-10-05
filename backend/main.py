@@ -4,13 +4,12 @@ from fastapi.responses import HTMLResponse
 import urllib.request
 import urllib.parse
 import json
-import re
 import os
 
 app = FastAPI(
     title="CogniCoreTech API",
     description="High-performance search gateway and developer tool suite.",
-    version="0.3.0"
+    version="0.4.0"
 )
 
 app.add_middleware(
@@ -34,81 +33,91 @@ def health_check():
     return {"status": "healthy", "code": 200}
 
 @app.get("/api/v1/search")
-def perform_search(q: str = Query(..., min_length=1, description="Search query string")):
+def perform_search(q: str = Query(..., min_length=1), category: str = Query("all")):
     results = []
     try:
-        # Use DuckDuckGo Instant Answer API for zero-cost, real-time structured data without external packages
         encoded_query = urllib.parse.quote(q)
         api_url = f"https://api.duckduckgo.com/?q={encoded_query}&format=json&no_html=1&skip_disambig=1"
         
         req = urllib.request.Request(
             api_url, 
-            headers={"User-Agent": "CogniCoreTech-Gateway/1.0 (Arch Linux FOSS Node)"}
+            headers={"User-Agent": "CogniCoreTech-Gateway/2.0 (Arch Linux FOSS Node)"}
         )
         
         with urllib.request.urlopen(req, timeout=5.0) as response:
             data = json.loads(response.read().decode("utf-8"))
             
-            # Extract Abstract Results
+            # Primary Abstract Result
             if data.get("AbstractText"):
                 results.append({
                     "title": data.get("Heading", q),
                     "url": data.get("AbstractURL", f"https://duckduckgo.com/?q={encoded_query}"),
-                    "snippet": data.get("AbstractText")
+                    "snippet": data.get("AbstractText"),
+                    "type": "reference"
                 })
             
-            # Extract Related Topics (Live web matches)
+            # Related Topics / Web Results
             for topic in data.get("RelatedTopics", []):
                 if "Text" in topic and "FirstURL" in topic:
-                    results.append({
-                        "title": topic.get("Text").split(" - ")[0],
-                        "url": topic.get("FirstURL"),
-                        "snippet": topic.get("Text")
-                    })
-                    if len(results) >= 5:
-                        break
-                        
-        # Fallback to direct HTML search parsing if API returns empty abstract fields
-        if not results:
-            html_url = f"https://html.duckduckgo.com/html/?q={encoded_query}"
-            html_req = urllib.request.Request(
-                html_url,
-                headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"}
-            )
-            with urllib.request.urlopen(html_req, timeout=5.0) as html_resp:
-                html_content = html_resp.read().decode("utf-8")
-                # Simple regex extraction for DuckDuckGo HTML result snippets and links
-                snippets = re.findall(r'<a class="result__snippet"[^>]*>(.*?)</a>', html_content, re.DOTALL)
-                titles = re.findall(r'<a class="result__url"[^>]*>(.*?)</a>', html_content, re.DOTALL)
-                
-                for i in range(min(len(snippets), 3)):
-                    clean_snippet = re.sub(r'<[^>]+>', '', snippets[i]).strip()
-                    results.append({
-                        "title": f"Live Web Result {i+1} for: {q}",
-                        "url": f"https://duckduckgo.com/?q={encoded_query}",
-                        "snippet": clean_snippet
-                    })
+                    text_val = topic.get("Text")
+                    url_val = topic.get("FirstURL")
+                    
+                    # Categorize based on filter selection
+                    item_type = "web"
+                    if "github" in url_val.lower() or "code" in text_val.lower() or "linux" in text_val.lower():
+                        item_type = "code"
+                    elif "news" in text_val.lower() or "times" in text_val.lower() or "post" in text_val.lower():
+                        item_type = "news"
+                    elif "wiki" in url_val.lower() or "dictionary" in url_val.lower():
+                        item_type = "media"
 
-        # Ultimate fallback if both return nothing
-        if not results:
-            results.append({
-                "title": f"DuckDuckGo Search Gateway: {q}",
-                "url": f"https://duckduckgo.com/?q={encoded_query}",
-                "snippet": f"Click to view live community search query results for '{q}' directly on DuckDuckGo."
-            })
+                    if category == "all" or category == item_type:
+                        results.append({
+                            "title": text_val.split(" - ")[0],
+                            "url": url_val,
+                            "snippet": text_val,
+                            "type": item_type
+                        })
+
+        # Curated enterprise category fallbacks if standard API yields few results
+        if len(results) < 3:
+            if category == "news" or category == "all":
+                results.append({
+                    "title": f"Latest Global & Regional Headlines: {q}",
+                    "url": f"https://news.google.com/search?q={encoded_query}",
+                    "snippet": f"Real-time news feeds and media bulletins covering live updates for '{q}'.",
+                    "type": "news"
+                })
+            if category == "code" or category == "all":
+                results.append({
+                    "title": f"Open Source Repositories & FOSS Packages: {q}",
+                    "url": f"https://github.com/search?q={encoded_query}",
+                    "snippet": f"Explore source code, libraries, and developer projects matching '{q}' on GitHub.",
+                    "type": "code"
+                })
+            if category == "media" or category == "all":
+                results.append({
+                    "title": f"Visual & Reference Archives: {q}",
+                    "url": f"https://duckduckgo.com/?q={encoded_query}&iax=images&ia=images",
+                    "snippet": f"High-resolution media assets, image galleries, and encyclopedic references for '{q}'.",
+                    "type": "media"
+                })
 
         return {
             "query": q,
+            "category": category,
             "status": "success",
-            "results": results
+            "results": results[:8]
         }
     except Exception as e:
         return {
             "query": q,
+            "category": category,
             "status": "error",
             "results": [{
-                "title": f"Gateway Query Error for: {q}",
+                "title": f"Gateway Exception for: {q}",
                 "url": f"https://duckduckgo.com/?q={urllib.parse.quote(q)}",
-                "snippet": f"Connection exception caught: {str(e)}. Click to search directly."
+                "snippet": f"Node warning: {str(e)}. Click to query directly on the web.",
+                "type": "error"
             }]
         }
